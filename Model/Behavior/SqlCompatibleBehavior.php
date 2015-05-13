@@ -192,6 +192,16 @@ class SqlCompatibleBehavior extends ModelBehavior {
 				$return = true;
 				continue;
 			}
+			if ($uKey === 'AND') {
+				unset($conditions[$key]);
+				foreach($value as $key => $part) {
+					$part = array($key => $part);
+					$this->_translateConditions($Model, $part);
+					$conditions['$and'][] = $part;
+				}
+				$return = true;
+				continue;
+			}
 			if ($key === $Model->primaryKey && is_array($value)) {
 				//_id=>array(1,2,3) pattern, set  $in operator
 				$isMongoOperator = false;
