@@ -56,7 +56,7 @@ class SqlCompatibleBehavior extends ModelBehavior {
  */
 	protected $_defaultSettings = array(
 		'convertDates' => true,
-		'dateFormat' => 'Y-M-d H:i:s',
+		'dateFormat' => 'Y-m-d H:i:s',
 		'operators' => array(
 			'!=' => '$ne',
 			'>' => '$gt',
