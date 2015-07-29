@@ -182,6 +182,15 @@ class SqlCompatibleBehavior extends ModelBehavior {
 				$return = true;
 				continue;
 			}
+			if (substr($uKey, -3) === ' IN') { // Check including space
+				// 'Special' case because it has a space in it, and it's the whole key
+				$field = trim(substr($key, 0, -2));
+
+				$conditions[$field]['$in'] = $value;
+				unset($conditions[$key]);
+				$return = true;
+				continue;
+			}
 			if ($uKey === 'OR') {
 				unset($conditions[$key]);
 				foreach($value as $key => $part) {
