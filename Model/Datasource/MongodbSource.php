@@ -771,6 +771,10 @@ class MongodbSource extends DboSource {
 		if (empty($data['_id'])) {
 			$data['_id'] = $Model->id;
 		}
+		
+		// If set-operator not used, but keep "created" if set
+		if($Model->mongoNoSetOperator && isset($data['created']) && !empty($data['created']))
+			$data['created'] = new MongoDate(strtotime($data['created']));
 
 		$this->_convertId($data['_id']);
         $table = $this->fullTableName($Model);
